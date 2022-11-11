@@ -31,26 +31,29 @@ void main(List<String> arguments) {
     Opção : """);
 
     opcao = int.parse(stdin.readLineSync()!);
+
+    switch (opcao){
+      case 1: print("O maior numero é ${maior(numeros)} e o menor numero é ${menor(numeros)}");
+        break;
+      case 2: print("A amplitude do array é ${amplitude(numeros)}");
+        break;
+      case 3: {
+        print("Ímpares ordenados:");
+        print(imprime(impares));
+      } break;
+      case 4: print(imprime(numeros));
+        break;
+      case 9: break;
+      default: print("Opção Inválida");
+        break;
+    }
     
-    if(opcao==1){
-      print("O maior numero é ${maior(numeros)} e o menor numero é ${menor(numeros)}");
-    } 
-    if(opcao==2){
-      print("A amplitude do array é ${amplitude(numeros)}");
-    }
-    if(opcao==3){
-      print("Ímpares ordenados:");
-      print(imprime(impares));
-    }
-    if(opcao==4){
-      print(imprime(numeros));
-    }
-    if(![1,2,3,4].contains(opcao)){
-      print("Opção Inválida");
-    }
-    print("""
+    if(opcao!=9){
+      print("""
           Clique <Enter> para continuar...""");
-    stdin.readLineSync();
+      stdin.readLineSync();
+    }
+    
   }
   
 
