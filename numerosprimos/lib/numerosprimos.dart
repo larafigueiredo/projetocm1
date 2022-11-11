@@ -20,7 +20,7 @@ void main() {
   double media = 0;
 
   //for para percorrer o intervalo pretendido
-  for (i = 100; i <= 200; i++) {
+  for (i = 101; i < 200; i++) {
     if (ePrimo(i) == true) {
       //mostra os números primos existentes no intervalo
       print((i));
