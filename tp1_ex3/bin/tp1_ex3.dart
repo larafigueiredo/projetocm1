@@ -1,17 +1,15 @@
-
-
 import 'dart:io';
 
-import 'package:trabalhopratico3/data/insurers.dart';
-import 'package:trabalhopratico3/insurer.dart';
-import 'package:trabalhopratico3/methods/new_insurance.dart';
-import 'package:trabalhopratico3/methods/new_insurer.dart';
+import 'package:tp1_ex3/data/insurers.dart';
+import 'package:tp1_ex3/insurer.dart';
+import 'package:tp1_ex3/methods/new_insurance.dart';
+import 'package:tp1_ex3/methods/new_insurer.dart';
 
 void main(List<String> arguments) {
   Insurers insurers = Insurers();
   int opcao = 0;
 
-  while (opcao!=9) {
+  while (opcao != 9) {
     print("""
     ------------------ :: MENU :: ------------------
     
@@ -30,24 +28,28 @@ void main(List<String> arguments) {
 
     opcao = int.parse(stdin.readLineSync()!);
 
-    switch (opcao){
-      case 1: newInsurance();
+    switch (opcao) {
+      case 1:
+        newInsurance(insurers);
         break;
-      case 2: insurers.add(newInsurer());
+      case 2:
+        insurers.add(newInsurer());
         break;
-      case 3: printStudents(insurers.list);
+      case 3:
+        printStudents(insurers.list);
         break;
-      case 9: break;
-      default: print("Opção Inválida");
+      case 9:
+        break;
+      default:
+        print("Opção Inválida");
         break;
     }
-
   }
-
-  
 }
 
-void printStudents(List<Insurer> insurers){
+void printStudents(List<Insurer> insurers) {
   print('----- SUMMARY (finally block) -----');
-  insurers.forEach((element) {print(element);});
+  insurers.forEach((element) {
+    print(element);
+  });
 }
