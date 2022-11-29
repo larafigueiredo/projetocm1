@@ -1,11 +1,26 @@
 import 'package:tp1_ex3/insurer.dart';
 
 class Insurers {
-  List<Insurer> _insurers = [];
+  Map <int, Insurer> _insurers = <int, Insurer>{};
 
-  List<Insurer> get list => _insurers;
+  Map <int, Insurer> get list => _insurers;
 
   void add(Insurer insurer) {
-    _insurers.add(insurer);
+    int key = getMaxKey() + 1;
+    _insurers.addEntries([MapEntry(key,insurer)]);
   }
+
+  int getMaxKey(){
+    var thevalue=0;
+
+    _insurers.keys.forEach((k){
+      if(k>thevalue) {
+        thevalue = k;
+      }
+    });
+
+    return thevalue;
+  }
+
+
 }

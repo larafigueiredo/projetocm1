@@ -16,8 +16,18 @@ class Person {
       required this.citizenID,
       required this.taxID});
 
+  String short() {
+    return '$name ($city)';
+  }
+
   @override
   String toString() {
-    return '$name ($city)';
+    return("""
+Nome:\t\t\t$name
+Data Nascimento:\t$birthDate
+Morada:\t\t\t$address
+Cidade:\t\t\t$city
+CC:\t\t\t$citizenID
+NIF:\t\t\t$taxID""");
   }
 }

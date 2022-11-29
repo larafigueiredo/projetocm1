@@ -9,8 +9,6 @@ class Insurer{
 
   @override
   String toString() {
-    String tipos = '';
-    insuranceTypes.forEach((e) { tipos += e.toString(); });
-    return '$name ($tipos)';
+    return '$name';
   }
 }
