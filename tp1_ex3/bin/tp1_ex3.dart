@@ -20,7 +20,7 @@ void main(List<String> arguments) {
   double soma = 0;
   double somaApoliceAtiva = 0;
   double somaApoliceInativa = 0;
-  double totalApolices = 0;
+  int totalApolices = 0;
   double contaSeguradora = 0;
   double somaSeguradora = 0;
   double mediaSeguradora = 0;
@@ -98,7 +98,7 @@ void main(List<String> arguments) {
       startDate: Date(day: 10, month: 10, year: 2020),
       endDate: Date(day: 10, month: 10, year: 2025)));
 
-  while (opcao != 11) {
+  while (opcao != 12) {
     print("""
     ------------------ :: MENU :: ------------------
     
@@ -157,6 +157,7 @@ void main(List<String> arguments) {
         printMap(insurances.list, "Apólices");
         break;
       case 6:
+        double valorPremio;
         insurances.list.entries.forEach((entry) {
           List<String> campos = entry.value.endDate.toString().split('/');
           int dia = int.parse(campos[0]);
@@ -189,6 +190,7 @@ void main(List<String> arguments) {
         });
         break;
       case 8:
+        totalApolices = insurances.list.length;
         insurances.list.entries.forEach((entry) {
           List<String> campos = entry.value.endDate.toString().split('/');
           int dia = int.parse(campos[0]);
@@ -196,7 +198,6 @@ void main(List<String> arguments) {
           int ano = int.parse(campos[2]);
           DateTime endDate = DateTime(ano, mes, dia);
           DateTime hoje = DateTime.now();
-          totalApolices = insurances.list.length.toDouble();
           if (hoje.isBefore(endDate)) {
             somaApoliceAtiva = somaApoliceAtiva + 1;
           }
@@ -216,7 +217,7 @@ void main(List<String> arguments) {
           int ano = int.parse(campos[2]);
           DateTime endDate = DateTime(ano, mes, dia);
           DateTime hoje = DateTime.now();
-          totalApolices = insurances.list.length.toDouble();
+          totalApolices = insurances.list.length;
           if (hoje.isBefore(endDate)) {
             somaApoliceAtiva = somaApoliceAtiva + 1;
             //sub-menu dos tipos de seguros
@@ -231,6 +232,8 @@ void main(List<String> arguments) {
         print('A media valor segurado da $seguradora é  $mediaSeguradora');
         break;
       case 10:
+        print("\n-- Indique o tipo de Seguro:--");
+        String tipoSeguro = stdin.readLineSync() ?? "";
         insurances.list.entries.forEach((entry) {
           List<String> campos = entry.value.endDate.toString().split('/');
           int dia = int.parse(campos[0]);
@@ -238,10 +241,10 @@ void main(List<String> arguments) {
           int ano = int.parse(campos[2]);
           DateTime endDate = DateTime(ano, mes, dia);
           DateTime hoje = DateTime.now();
-          totalApolices = insurances.list.length.toDouble();
+          totalApolices = insurances.list.length;
           if (hoje.isBefore(endDate)) {
             entry.value.insurer.insuranceTypes.forEach((entryInsurancer) {
-              if (entryInsurancer.name.contains('auto')) {
+              if (entryInsurancer.name.contains(tipoSeguro)) {
                 contaTipoSeguro++;
                 somaTipoSeguro = somaTipoSeguro + entry.value.insuredAmount;
               }
