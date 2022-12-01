@@ -115,7 +115,7 @@ void main(List<String> arguments) {
     9 - quantidade de apólices e valor médio segurado por seguradora (apenas apólices ativas)
     10 - quantidade de apólices e valor médio segurado por tipo de seguro (apenas apólices ativas);
 
-    9 - Sairs
+    11 - Sair
 
     ------------------------------------------------
 
@@ -207,6 +207,8 @@ void main(List<String> arguments) {
         print('A quantidade de apólices inativas é  $somaApoliceInativa');
         break;
       case 9:
+        print("\n-- Indique a seguradora:--");
+        String seguradora = stdin.readLineSync() ?? "";
         insurances.list.entries.forEach((entry) {
           List<String> campos = entry.value.endDate.toString().split('/');
           int dia = int.parse(campos[0]);
@@ -217,15 +219,16 @@ void main(List<String> arguments) {
           totalApolices = insurances.list.length.toDouble();
           if (hoje.isBefore(endDate)) {
             somaApoliceAtiva = somaApoliceAtiva + 1;
-            if (entry.value.insurer.name.contains('Allianz')) {
+            //sub-menu dos tipos de seguros
+            if (entry.value.insurer.name.contains(seguradora)) {
               contaSeguradora++;
               somaSeguradora = somaSeguradora + entry.value.insuredAmount;
             }
           }
         });
         mediaSeguradora = somaSeguradora / contaSeguradora;
-        print('A quantidade de apólices da All é  $contaSeguradora');
-        print('A media valor segurado da All é  $mediaSeguradora');
+        print('A quantidade de apólices da $seguradora é  $contaSeguradora');
+        print('A media valor segurado da $seguradora é  $mediaSeguradora');
         break;
       case 10:
         insurances.list.entries.forEach((entry) {
