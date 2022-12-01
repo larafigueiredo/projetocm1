@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:tp1_ex3/data/insurances.dart';
@@ -17,6 +18,16 @@ void main(List<String> arguments) {
   Insurers insurers = Insurers();
   Persons persons = Persons();
   double soma = 0;
+  double somaApoliceAtiva = 0;
+  double somaApoliceInativa = 0;
+  double totalApolices = 0;
+  double contaSeguradora = 0;
+  double somaSeguradora = 0;
+  double mediaSeguradora = 0;
+  double contaTipoSeguro = 0;
+  double somaTipoSeguro = 0;
+  double mediaTipoSeguro = 0;
+
   Insurances insurances = Insurances();
   int opcao = 0;
   Person person1 = Person(
@@ -63,7 +74,7 @@ void main(List<String> arguments) {
           carYear: 2020,
           carValuation: 30000.52,
           driverLicenseDate: Date(day: 10, month: 10, year: 2020)),
-      insuredAmount: 27500,
+      insuredAmount: 10000,
       periodicity: Periodicity.monthly,
       chargeAmount: 35.52,
       startDate: Date(day: 10, month: 10, year: 2020),
@@ -87,7 +98,7 @@ void main(List<String> arguments) {
       startDate: Date(day: 10, month: 10, year: 2020),
       endDate: Date(day: 10, month: 10, year: 2025)));
 
-  while (opcao != 9) {
+  while (opcao != 11) {
     print("""
     ------------------ :: MENU :: ------------------
     
@@ -98,10 +109,13 @@ void main(List<String> arguments) {
     3 - Ver Todos Clientes
     4 - Ver Todas Seguradoras
     5 - Ver Todas Apólices
-    6 - Relatório de apólices ativas por tipo de seguro e seguradora
-    7 - Relatório de entidades (tomadores e segurados) com apólices ativas
+    6-  Apolices ativas mostrando segurado e seguradora e tipo de seguro
+    7 - Relatório de entidades (tomadores e segurados) com apólices ativas nome e endereco
+    8 - Apolices ativas e inativas, e quantidade total
+    9 - quantidade de apólices e valor médio segurado por seguradora (apenas apólices ativas)
+    10 - quantidade de apólices e valor médio segurado por tipo de seguro (apenas apólices ativas);
 
-    9 - Sair
+    9 - Sairs
 
     ------------------------------------------------
 
@@ -143,42 +157,29 @@ void main(List<String> arguments) {
         printMap(insurances.list, "Apólices");
         break;
       case 6:
-        //printStudff(insurances.list);
         insurances.list.entries.forEach((entry) {
-          //print(entry.value.endDate);
           List<String> campos = entry.value.endDate.toString().split('/');
           int dia = int.parse(campos[0]);
           int mes = int.parse(campos[1]);
           int ano = int.parse(campos[2]);
           DateTime endDate = DateTime(ano, mes, dia);
-
           DateTime hoje = DateTime.now();
-
           if (hoje.isBefore(endDate)) {
-            //print('ativa');
-            //print(entry.key);
-            soma = soma + entry.value.insuredAmount;
             print(entry.value);
             print(entry.value.insurer.insuranceTypes);
+            print(entry.value.insuredAmount);
           }
         });
-        print(soma);
         break;
       case 7:
-        //printStudff(insurances.list);
         insurances.list.entries.forEach((entry) {
-          //print(entry.value.endDate);
           List<String> campos = entry.value.endDate.toString().split('/');
           int dia = int.parse(campos[0]);
           int mes = int.parse(campos[1]);
           int ano = int.parse(campos[2]);
           DateTime ativa = DateTime(ano, mes, dia);
-
           DateTime hoje = DateTime.now();
-
           if (hoje.isBefore(ativa)) {
-            //print('ativa');
-            //print(entry.key);
             print(entry.value.insured.name);
             print(entry.value.insured.birthDate.age());
             print(entry.value.insured.city);
@@ -186,7 +187,67 @@ void main(List<String> arguments) {
             print(entry.value.policyholder.birthDate.age());
           }
         });
-        //print(soma);
+        break;
+      case 8:
+        insurances.list.entries.forEach((entry) {
+          List<String> campos = entry.value.endDate.toString().split('/');
+          int dia = int.parse(campos[0]);
+          int mes = int.parse(campos[1]);
+          int ano = int.parse(campos[2]);
+          DateTime endDate = DateTime(ano, mes, dia);
+          DateTime hoje = DateTime.now();
+          totalApolices = insurances.list.length.toDouble();
+          if (hoje.isBefore(endDate)) {
+            somaApoliceAtiva = somaApoliceAtiva + 1;
+          }
+        });
+        somaApoliceInativa = totalApolices - somaApoliceAtiva;
+        print('A quantidade de apólices total é  $totalApolices');
+        print('A quantidade de apólices ativas é  $somaApoliceAtiva');
+        print('A quantidade de apólices inativas é  $somaApoliceInativa');
+        break;
+      case 9:
+        insurances.list.entries.forEach((entry) {
+          List<String> campos = entry.value.endDate.toString().split('/');
+          int dia = int.parse(campos[0]);
+          int mes = int.parse(campos[1]);
+          int ano = int.parse(campos[2]);
+          DateTime endDate = DateTime(ano, mes, dia);
+          DateTime hoje = DateTime.now();
+          totalApolices = insurances.list.length.toDouble();
+          if (hoje.isBefore(endDate)) {
+            somaApoliceAtiva = somaApoliceAtiva + 1;
+            if (entry.value.insurer.name.contains('Allianz')) {
+              contaSeguradora++;
+              somaSeguradora = somaSeguradora + entry.value.insuredAmount;
+            }
+          }
+        });
+        mediaSeguradora = somaSeguradora / contaSeguradora;
+        print('A quantidade de apólices da All é  $contaSeguradora');
+        print('A media valor segurado da All é  $mediaSeguradora');
+        break;
+      case 10:
+        insurances.list.entries.forEach((entry) {
+          List<String> campos = entry.value.endDate.toString().split('/');
+          int dia = int.parse(campos[0]);
+          int mes = int.parse(campos[1]);
+          int ano = int.parse(campos[2]);
+          DateTime endDate = DateTime(ano, mes, dia);
+          DateTime hoje = DateTime.now();
+          totalApolices = insurances.list.length.toDouble();
+          if (hoje.isBefore(endDate)) {
+            entry.value.insurer.insuranceTypes.forEach((entryInsurancer) {
+              if (entryInsurancer.name.contains('auto')) {
+                contaTipoSeguro++;
+                somaTipoSeguro = somaTipoSeguro + entry.value.insuredAmount;
+              }
+            });
+          }
+        });
+        mediaTipoSeguro = somaTipoSeguro / contaTipoSeguro;
+        print('A quantidade de apólices da auto é  $contaTipoSeguro');
+        print('A media valor segurado da auto é  $mediaTipoSeguro');
         break;
       default:
         print("Opção Inválida");
