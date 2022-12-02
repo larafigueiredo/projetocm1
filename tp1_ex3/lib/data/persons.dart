@@ -1,4 +1,3 @@
-import 'package:tp1_ex3/date.dart';
 import 'package:tp1_ex3/person.dart';
 
 class Persons {
@@ -8,7 +7,7 @@ class Persons {
 
   void add(Person person) {
     int key = getMaxKey() + 1;
-    _persons.addEntries([MapEntry(key,person)]);
+    _persons.addEntries([MapEntry(key, person)]);
   }
 
   void remove(int key) {
@@ -23,7 +22,7 @@ class Persons {
     _persons[key]!.taxID = person.taxID;
   }
 
-  void updateDate(int key, Date date) {
+  void updateDate(int key, DateTime date) {
     _persons[key]!.birthDate = date;
   }
 

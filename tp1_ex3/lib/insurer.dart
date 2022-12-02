@@ -7,8 +7,16 @@ class Insurer{
 
   Insurer({required this.name, required this.insuranceTypes});
 
+  String short() {
+    return name;
+  }
+
   @override
   String toString() {
-    return '$name';
+    String tipos = "";
+    insuranceTypes.forEach((element) { tipos += element.toString().replaceAll("Types.", " > "); });
+    return("""
+Seguradora:\t\t$name
+Tipos de Seguro:\t$tipos""");
   }
 }

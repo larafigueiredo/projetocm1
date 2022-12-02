@@ -1,8 +1,6 @@
-import 'package:tp1_ex3/date.dart';
-
 class Person {
   String name;
-  Date birthDate;
+  DateTime birthDate;
   String address;
   String city;
   int citizenID;

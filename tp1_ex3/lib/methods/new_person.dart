@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:tp1_ex3/date.dart';
 import 'package:tp1_ex3/person.dart';
 
 Person newPerson() {
@@ -28,7 +26,7 @@ Person newPerson() {
   print("NIF");
   int nif = int.parse(stdin.readLineSync()!);
 
-  Date birthDate = Date(day: dia, month: mes, year: ano);
+  DateTime birthDate = DateTime(ano, mes, dia);
 
   return Person(
       name: name,
