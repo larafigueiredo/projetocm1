@@ -27,7 +27,6 @@ Persons persons = Persons();
 Insurances insurances = Insurances();
 
 void main(List<String> arguments) {
-  double soma = 0;
   double somaApoliceAtiva = 0;
   double somaApoliceInativa = 0;
   int totalApolices = 0;
@@ -39,9 +38,6 @@ void main(List<String> arguments) {
   double mediaTipoSeguro = 0;
   int opcao = 0;
   double somaValorPremio = 0;
-  double valorPremio = 0;
-
-  Insurances insurances = Insurances();
 
   Person person1 = Person(
       name: 'Sergio',
@@ -113,46 +109,8 @@ void main(List<String> arguments) {
       driverLicenseDate: DateTime(2020, 10, 10)
   ));
 
- insurances.add(AutoInsurance(
-      insurer: insurer1,
-      policyholder: person3,
-      insured: person3,
-      insuranceType: Types.auto,
-      insuredAmount: 10000,
-      periodicity: Periodicity.monthly,
-      chargeAmount: 35.52,
-      startDate: DateTime(2022, 10, 10),
-      endDate: DateTime(2024, 10, 10),
-      licensePlate: '20-20-MM',
-      brand: 'Mercedes',
-      model: 'Classe A',
-      seatCapacity: 5,
-      carYear: 2020,
-      carValuation: 30000.52,
-      driverLicenseDate: DateTime(2020, 10, 10)
-  ));
-  
-    insurances.add(AutoInsurance(
-      insurer: insurer1,
-      policyholder: person1,
-      insured: person2,
-      insuranceType: Types.auto,
-      insuredAmount: 10000,
-      periodicity: Periodicity.yearly,
-      chargeAmount: 35.52,
-      startDate: DateTime(2022, 10, 10),
-      endDate: DateTime(2024, 10, 10),
-      licensePlate: '20-20-MM',
-      brand: 'Mercedes',
-      model: 'Classe A',
-      seatCapacity: 5,
-      carYear: 2020,
-      carValuation: 30000.52,
-      driverLicenseDate: DateTime(2020, 10, 10)
-  ));
 
-  
-  while (opcao != 12) {
+  while (opcao != 11) {
     print("\n");
     print(
         "|-----------------------------------------------------------------------------------------|");
@@ -163,27 +121,27 @@ void main(List<String> arguments) {
     print(
         "|------------------------------Selecione a opção pretendida:------------------------------|");
     print(
-        "1 - Adicionar Nova Apólice                                                              ");
+        " 1 - Adicionar Nova Apólice                                                              ");
     print(
-        "2- Adicionar Nova Seguradora                                                            ");
+        " 2 - Adicionar Nova Seguradora                                                            ");
     print(
-        "3- Ver Todos Clientes                                                                   ");
+        " 3 - Ver Todos Clientes                                                                   ");
     print(
-        "4- Ver Todas Seguradoras                                                                ");
+        " 4 - Ver Todas Seguradoras                                                                ");
     print(
-        "5- Ver Todas Apólices                                                                   ");
+        " 5 - Ver Todas Apólices                                                                   ");
     print(
-        "6- Apolices ativas mostrando segurado e seguradora e tipo de seguro                     ");
+        " 6 - Apolices ativas mostrando segurado e seguradora e tipo de seguro                     ");
     print(
-        "7- Relatório de entidades (tomadores e segurados) com apólices ativas nome e endereco   ");
+        " 7 - Relatório de entidades (tomadores e segurados) com apólices ativas nome e endereco   ");
     print(
-        "8- Apolices ativas e inativas, e quantidade total                                           ");
+        " 8 - Apolices ativas e inativas, e quantidade total                                           ");
     print(
-        "9- Quantidade de apólices e valor médio segurado por seguradora (apenas apólices ativas)     ");
+        " 9 - Quantidade de apólices e valor médio segurado por seguradora (apenas apólices ativas)     ");
     print(
         "10 - Quantidade de apólices e valor médio segurado por tipo de seguro (apenas apólices ativas); ");
     print(
-        "11- Sair                                                                                         ");
+        "11 - Sair                                                                                         ");
 
     opcao = int.parse(stdin.readLineSync()!);
 
@@ -219,58 +177,32 @@ void main(List<String> arguments) {
         break;
 
       case 6:
-        print("\n-- Digite o tipo de periodicidade: --");
-        print("1- Mensal\n2- Semi Anual\n3- Anual");
-        int periodicidade = int.parse(stdin.readLineSync()!);
-        String converteNomePeriodicidade = '';
-        if (periodicidade == 1) {
-          converteNomePeriodicidade = 'monthly';
-        }
-        if (periodicidade == 2) {
-          converteNomePeriodicidade = 'semiannual';
-        }
-        if (periodicidade == 3) {
-          converteNomePeriodicidade = 'yearly';
-        }
         insurances.list.entries.forEach((entry) {
-          List<String> campos = entry.value.endDate.toString().split('/');
-          int dia = int.parse(campos[0]);
-          int mes = int.parse(campos[1]);
-          int ano = int.parse(campos[2]);
-          DateTime endDate = DateTime(ano, mes, dia);
           DateTime hoje = DateTime.now();
-          if (hoje.isBefore(endDate)) {
-            print("\n");
-            if (entry.value.periodicity.name
-                .contains(converteNomePeriodicidade)) {
-              somaValorPremio = somaValorPremio + entry.value.insuredAmount;
+          if (hoje.isBefore(entry.value.endDate)) {
+            switch(entry.value.periodicity){
+              case Periodicity.monthly:
+                somaValorPremio = somaValorPremio + (entry.value.chargeAmount * 12);
+                break;
+              case Periodicity.semiannual:
+                somaValorPremio = somaValorPremio + (entry.value.chargeAmount * 2);
+                break;
+              case Periodicity.yearly:
+                somaValorPremio = somaValorPremio + entry.value.chargeAmount;
+                break;
             }
           }
         });
-        switch (periodicidade) {
-          case 1:
-            valorPremio = (somaValorPremio * 1);
-            break;
-          case 2:
-            valorPremio = (somaValorPremio * 6);
-            break;
-          case 3:
-            valorPremio = (somaValorPremio * 12);
-            break;
-          default:
-        }
-        print('O valor do Prêmio Anual é $valorPremio €');
+        print('O valor do Prêmio Anual é $somaValorPremio €');
+        print('');
+        print("Prima <Enter> para voltar ao Menu");
+        stdin.readLineSync();
         break;
 
       case 7:
         insurances.list.entries.forEach((entry) {
-          List<String> campos = entry.value.endDate.toString().split('/');
-          int dia = int.parse(campos[0]);
-          int mes = int.parse(campos[1]);
-          int ano = int.parse(campos[2]);
-          DateTime ativa = DateTime(ano, mes, dia);
           DateTime hoje = DateTime.now();
-          if (hoje.isBefore(ativa)) {
+          if (hoje.isBefore(entry.value.endDate)) {
             print(entry.value.insured.name);
             print(age(entry.value.insured.birthDate));
             print(entry.value.insured.city);
@@ -278,18 +210,16 @@ void main(List<String> arguments) {
             print(age(entry.value.policyholder.birthDate));
           }
         });
+        print('');
+        print("Prima <Enter> para voltar ao Menu");
+        stdin.readLineSync();
         break;
 
       case 8:
         totalApolices = insurances.list.length;
         insurances.list.entries.forEach((entry) {
-          List<String> campos = entry.value.endDate.toString().split('/');
-          int dia = int.parse(campos[0]);
-          int mes = int.parse(campos[1]);
-          int ano = int.parse(campos[2]);
-          DateTime endDate = DateTime(ano, mes, dia);
           DateTime hoje = DateTime.now();
-          if (hoje.isBefore(endDate)) {
+          if (hoje.isBefore(entry.value.endDate)) {
             somaApoliceAtiva = somaApoliceAtiva + 1;
           }
         });
@@ -297,20 +227,18 @@ void main(List<String> arguments) {
         print('A quantidade de apólices total é  $totalApolices');
         print('A quantidade de apólices ativas é  $somaApoliceAtiva');
         print('A quantidade de apólices inativas é  $somaApoliceInativa');
+        print('');
+        print("Prima <Enter> para voltar ao Menu");
+        stdin.readLineSync();
         break;
 
       case 9:
         print("\n-- Indique a seguradora:--");
         String seguradora = stdin.readLineSync() ?? "";
         insurances.list.entries.forEach((entry) {
-          List<String> campos = entry.value.endDate.toString().split('/');
-          int dia = int.parse(campos[0]);
-          int mes = int.parse(campos[1]);
-          int ano = int.parse(campos[2]);
-          DateTime endDate = DateTime(ano, mes, dia);
           DateTime hoje = DateTime.now();
           totalApolices = insurances.list.length;
-          if (hoje.isBefore(endDate)) {
+          if (hoje.isBefore(entry.value.endDate)) {
             somaApoliceAtiva = somaApoliceAtiva + 1;
             //sub-menu dos tipos de seguros
             if (entry.value.insurer.name.contains(seguradora)) {
@@ -322,20 +250,18 @@ void main(List<String> arguments) {
         mediaSeguradora = somaSeguradora / contaSeguradora;
         print('A quantidade de apólices da $seguradora é  $contaSeguradora');
         print('A media valor segurado da $seguradora é  $mediaSeguradora €');
+        print('');
+        print("Prima <Enter> para voltar ao Menu");
+        stdin.readLineSync();
         break;
 
       case 10:
         print("\n-- Indique o tipo de Seguro:--");
         String tipoSeguro = stdin.readLineSync() ?? "";
         insurances.list.entries.forEach((entry) {
-          List<String> campos = entry.value.endDate.toString().split('/');
-          int dia = int.parse(campos[0]);
-          int mes = int.parse(campos[1]);
-          int ano = int.parse(campos[2]);
-          DateTime endDate = DateTime(ano, mes, dia);
           DateTime hoje = DateTime.now();
           totalApolices = insurances.list.length;
-          if (hoje.isBefore(endDate)) {
+          if (hoje.isBefore(entry.value.endDate)) {
             entry.value.insurer.insuranceTypes.forEach((entryInsurancer) {
               if (entryInsurancer.name.contains(tipoSeguro)) {
                 contaTipoSeguro++;
@@ -347,6 +273,9 @@ void main(List<String> arguments) {
         mediaTipoSeguro = somaTipoSeguro / contaTipoSeguro;
         print('A quantidade de apólices da auto é  $contaTipoSeguro');
         print('A media valor segurado da auto é  $mediaTipoSeguro €');
+        print('');
+        print("Prima <Enter> para voltar ao Menu");
+        stdin.readLineSync();
         break;
       case 11:
         print("Programa Finalizado");
@@ -462,7 +391,7 @@ String printApolice(String apolice) {
   if (opt == 2) printPerson(persons.list.keys.firstWhere((k) => persons.list[k] == insurances.list[int.parse(apolice)]?.policyholder).toString());
   if (opt == 3) printPerson(persons.list.keys.firstWhere((k) => persons.list[k] == insurances.list[int.parse(apolice)]?.insured).toString());
   if ([1, 2, 3].contains(opt)){
-    print("Prima qualquer tecla para voltar");
+    print("Prima <Enter> para voltar");
     stdin.readLineSync();
     return "";
   } 
@@ -493,10 +422,10 @@ String printApolice(String apolice) {
   if (opt == 7) {
     printMap(insurers.list, "Seguradoras");
     int seguradora = int.parse(stdin.readLineSync()!);
-    insurances.transferir(int.parse(apolice), insurers.list[seguradora]!);
+    insurances.transfer(int.parse(apolice), insurers.list[seguradora]!);
   }
   if (opt == 8) {
-    insurances.renovar(int.parse(apolice));
+    insurances.renew(int.parse(apolice));
   }
   if (opt == 9) {
     DateTime novaData = editDate(insurances.list[int.parse(apolice)]!.endDate);
@@ -513,6 +442,9 @@ String printApolice(String apolice) {
         print("Valor a devolver ($mesesDevolucao meses): ${mesesDevolucao * (insurances.list[int.parse(apolice)]!.chargeAmount / 12).roundToDouble()} €");
         break;
     }
+    print('');
+    print("Prima <Enter> para voltar ao Menu");
+    stdin.readLineSync();
   }
   if (opt == 10) insurances.remove(int.parse(apolice));
   return " ";

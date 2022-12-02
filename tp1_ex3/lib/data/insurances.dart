@@ -59,11 +59,11 @@ class Insurances {
     (_insurances[key] as WorkInsurance).workType = insurance.workType;
   }
 
-  void renovar(int key) {
+  void renew(int key) {
     _insurances[key]!.endDate = DateTime(_insurances[key]!.endDate.year + 1, _insurances[key]!.endDate.month, _insurances[key]!.endDate.day);
   }
 
-  void transferir(int key, Insurer seguradora) {
+  void transfer(int key, Insurer seguradora) {
     _insurances[key]!.insurer = seguradora;
   }
 
