@@ -1,12 +1,14 @@
-
 enum Types { auto, health, housing, work }
 
-class Insurer{
+class Insurer {
   String name;
-  List <Types> insuranceTypes;
+  List<Types> insuranceTypes;
 
   Insurer({required this.name, required this.insuranceTypes});
+  
+  get insuredAmount => null;
 
+  
   String short() {
     return name;
   }

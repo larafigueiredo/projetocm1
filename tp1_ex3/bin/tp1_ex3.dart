@@ -38,6 +38,11 @@ void main(List<String> arguments) {
   double somaTipoSeguro = 0;
   double mediaTipoSeguro = 0;
   int opcao = 0;
+  double somaValorPremio = 0;
+  double valorPremio = 0;
+
+  Insurances insurances = Insurances();
+
   Person person1 = Person(
       name: 'Sergio',
       birthDate: DateTime(1994, 2, 24),
@@ -108,28 +113,77 @@ void main(List<String> arguments) {
       driverLicenseDate: DateTime(2020, 10, 10)
   ));
 
-  while (opcao != 11) {
-    print("""
-    ------------------ :: MENU :: ------------------
-    
-    Selecione a opção pretendida:
+ insurances.add(AutoInsurance(
+      insurer: insurer1,
+      policyholder: person3,
+      insured: person3,
+      insuranceType: Types.auto,
+      insuredAmount: 10000,
+      periodicity: Periodicity.monthly,
+      chargeAmount: 35.52,
+      startDate: DateTime(2022, 10, 10),
+      endDate: DateTime(2024, 10, 10),
+      licensePlate: '20-20-MM',
+      brand: 'Mercedes',
+      model: 'Classe A',
+      seatCapacity: 5,
+      carYear: 2020,
+      carValuation: 30000.52,
+      driverLicenseDate: DateTime(2020, 10, 10)
+  ));
+  
+    insurances.add(AutoInsurance(
+      insurer: insurer1,
+      policyholder: person1,
+      insured: person2,
+      insuranceType: Types.auto,
+      insuredAmount: 10000,
+      periodicity: Periodicity.yearly,
+      chargeAmount: 35.52,
+      startDate: DateTime(2022, 10, 10),
+      endDate: DateTime(2024, 10, 10),
+      licensePlate: '20-20-MM',
+      brand: 'Mercedes',
+      model: 'Classe A',
+      seatCapacity: 5,
+      carYear: 2020,
+      carValuation: 30000.52,
+      driverLicenseDate: DateTime(2020, 10, 10)
+  ));
 
-    1 - Adicionar Nova Apólice
-    2 - Adicionar Nova Seguradora
-    3 - Ver Todos Clientes
-    4 - Ver Todas Seguradoras
-    5 - Ver Todas Apólices
-    6-  Apolices ativas mostrando segurado e seguradora e tipo de seguro
-    7 - Relatório de entidades (tomadores e segurados) com apólices ativas nome e endereco
-    8 - Apolices ativas e inativas, e quantidade total
-    9 - quantidade de apólices e valor médio segurado por seguradora (apenas apólices ativas)
-    10 - quantidade de apólices e valor médio segurado por tipo de seguro (apenas apólices ativas);
-
-    11 - Sair
-
-    ------------------------------------------------
-
-    Opção : """);
+  
+  while (opcao != 12) {
+    print("\n");
+    print(
+        "|-----------------------------------------------------------------------------------------|");
+    print(
+        "|                                    Surpresas Existem!                                   |");
+    print(
+        "|-----------------------------------------------------------------------------------------|");
+    print(
+        "|------------------------------Selecione a opção pretendida:------------------------------|");
+    print(
+        "1 - Adicionar Nova Apólice                                                              ");
+    print(
+        "2- Adicionar Nova Seguradora                                                            ");
+    print(
+        "3- Ver Todos Clientes                                                                   ");
+    print(
+        "4- Ver Todas Seguradoras                                                                ");
+    print(
+        "5- Ver Todas Apólices                                                                   ");
+    print(
+        "6- Apolices ativas mostrando segurado e seguradora e tipo de seguro                     ");
+    print(
+        "7- Relatório de entidades (tomadores e segurados) com apólices ativas nome e endereco   ");
+    print(
+        "8- Apolices ativas e inativas, e quantidade total                                           ");
+    print(
+        "9- Quantidade de apólices e valor médio segurado por seguradora (apenas apólices ativas)     ");
+    print(
+        "10 - Quantidade de apólices e valor médio segurado por tipo de seguro (apenas apólices ativas); ");
+    print(
+        "11- Sair                                                                                         ");
 
     opcao = int.parse(stdin.readLineSync()!);
 
@@ -165,7 +219,19 @@ void main(List<String> arguments) {
         break;
 
       case 6:
-        double valorPremio;
+        print("\n-- Digite o tipo de periodicidade: --");
+        print("1- Mensal\n2- Semi Anual\n3- Anual");
+        int periodicidade = int.parse(stdin.readLineSync()!);
+        String converteNomePeriodicidade = '';
+        if (periodicidade == 1) {
+          converteNomePeriodicidade = 'monthly';
+        }
+        if (periodicidade == 2) {
+          converteNomePeriodicidade = 'semiannual';
+        }
+        if (periodicidade == 3) {
+          converteNomePeriodicidade = 'yearly';
+        }
         insurances.list.entries.forEach((entry) {
           List<String> campos = entry.value.endDate.toString().split('/');
           int dia = int.parse(campos[0]);
@@ -174,11 +240,26 @@ void main(List<String> arguments) {
           DateTime endDate = DateTime(ano, mes, dia);
           DateTime hoje = DateTime.now();
           if (hoje.isBefore(endDate)) {
-            print(entry.value);
-            print(entry.value.insurer.insuranceTypes);
-            print(entry.value.insuredAmount);
+            print("\n");
+            if (entry.value.periodicity.name
+                .contains(converteNomePeriodicidade)) {
+              somaValorPremio = somaValorPremio + entry.value.insuredAmount;
+            }
           }
         });
+        switch (periodicidade) {
+          case 1:
+            valorPremio = (somaValorPremio * 1);
+            break;
+          case 2:
+            valorPremio = (somaValorPremio * 6);
+            break;
+          case 3:
+            valorPremio = (somaValorPremio * 12);
+            break;
+          default:
+        }
+        print('O valor do Prêmio Anual é $valorPremio €');
         break;
 
       case 7:
@@ -240,7 +321,7 @@ void main(List<String> arguments) {
         });
         mediaSeguradora = somaSeguradora / contaSeguradora;
         print('A quantidade de apólices da $seguradora é  $contaSeguradora');
-        print('A media valor segurado da $seguradora é  $mediaSeguradora');
+        print('A media valor segurado da $seguradora é  $mediaSeguradora €');
         break;
 
       case 10:
@@ -265,7 +346,7 @@ void main(List<String> arguments) {
         });
         mediaTipoSeguro = somaTipoSeguro / contaTipoSeguro;
         print('A quantidade de apólices da auto é  $contaTipoSeguro');
-        print('A media valor segurado da auto é  $mediaTipoSeguro');
+        print('A media valor segurado da auto é  $mediaTipoSeguro €');
         break;
       case 11:
         print("Programa Finalizado");
