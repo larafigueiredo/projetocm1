@@ -136,9 +136,11 @@ void main(List<String> arguments) {
     print(
         " 6 -                                 Mostrar Dashboard                                     ");
     print(
-        " 7 - Relatório de entidades (tomadores e segurados) com apólices ativas nome e endereco   ");
+        " 7 - Relatório de apólices ativas por tipo de seguro e seguradora                         ");
     print(
-        "11 - Sair                                                                                 ");
+        " 8 - Relatório de entidades                                                               ");
+    print(
+        " 9 - Sair                                                                                 ");
 
     opcao = int.parse(stdin.readLineSync()!);
 
@@ -174,29 +176,6 @@ void main(List<String> arguments) {
         break;
 
       case 6:
-        // insurances.list.entries.forEach((entry) {
-        //   DateTime hoje = DateTime.now();
-        //   if (hoje.isBefore(entry.value.endDate)) {
-        //     switch (entry.value.periodicity) {
-        //       case Periodicity.monthly:
-        //         somaValorPremio =
-        //             somaValorPremio + (entry.value.chargeAmount * 12);
-        //         break;
-        //       case Periodicity.semiannual:
-        //         somaValorPremio =
-        //             somaValorPremio + (entry.value.chargeAmount * 2);
-        //         break;
-        //       case Periodicity.yearly:
-        //         somaValorPremio = somaValorPremio + entry.value.chargeAmount;
-        //         break;
-        //     }
-        //   }
-        // });
-        // print('O valor do Prêmio Anual é $somaValorPremio €');
-        // print('');
-        // print("Prima <Enter> para voltar ao Menu");
-        // stdin.readLineSync();
-        // break;
         totalApolices = insurances.list.length;
         insurances.list.entries.forEach((entry) {
           DateTime hoje = DateTime.now();
@@ -261,7 +240,36 @@ void main(List<String> arguments) {
         stdin.readLineSync();
         break;
       case 7:
-        print('          Nome\t\tIdade\tMorada \n'
+        insurances.list.entries.forEach((entry) {
+          DateTime hoje = DateTime.now();
+          if (hoje.isBefore(entry.value.endDate)) {
+            switch (entry.value.periodicity) {
+              case Periodicity.monthly:
+                somaValorPremio =
+                    somaValorPremio + (entry.value.chargeAmount * 12);
+                break;
+              case Periodicity.semiannual:
+                somaValorPremio =
+                    somaValorPremio + (entry.value.chargeAmount * 2);
+                break;
+              case Periodicity.yearly:
+                somaValorPremio = somaValorPremio + entry.value.chargeAmount;
+                break;
+            }
+            print(
+                'Relatório de apólices ativas por tipo de seguro e seguradora\t\tValor de Cada Prêmio\n'
+                '----------------------------------------------------------------------------------------------\n');
+            print(
+                '${(entry.value.insurer)}\t\t\t\t ${(entry.value.chargeAmount)}\t\t\t\t${(somaValorPremio)}     ');
+          }
+        });
+
+        print("Prima <Enter> para voltar ao Menu");
+        stdin.readLineSync();
+        break;
+
+      case 8:
+        print('                  Nome\t\tIdade\tMorada \n'
             '-------------------------------------------------------------------------------------------------------------\n');
         insurances.list.entries.forEach((entry) {
           DateTime hoje = DateTime.now();
@@ -276,9 +284,10 @@ void main(List<String> arguments) {
         stdin.readLineSync();
         break;
 
-      case 11:
+      case 9:
         print("Programa Finalizado");
         break;
+
       default:
         print("Opção Inválida");
         break;
