@@ -27,17 +27,13 @@ Persons persons = Persons();
 Insurances insurances = Insurances();
 
 void main(List<String> arguments) {
-  double somaApoliceAtiva = 0;
-  double somaApoliceInativa = 0;
+  int somaApoliceAtiva = 0;
+  int somaApoliceInativa = 0;
   int totalApolices = 0;
   double contaSeguradora = 0;
-  double somaSeguradora = 0;
-  double mediaSeguradora = 0;
-  double contaTipoSeguro = 0;
-  double somaTipoSeguro = 0;
-  double mediaTipoSeguro = 0;
   int opcao = 0;
   double somaValorPremio = 0;
+  DateTime hoje = DateTime.now();
 
   Person person1 = Person(
       name: 'Sergio',
@@ -135,11 +131,7 @@ void main(List<String> arguments) {
     print(
         " 7 - Relatório de entidades (tomadores e segurados) com apólices ativas nome e endereco   ");
     print(
-        " 8 - Apolices ativas e inativas, e quantidade total                                           ");
-    print(
-        " 9 - Quantidade de apólices e valor médio segurado por seguradora (apenas apólices ativas)     ");
-    print(
-        "10 - Quantidade de apólices e valor médio segurado por tipo de seguro (apenas apólices ativas); ");
+        " 8 - Dashboard Geral ");
     print(
         "11 - Sair                                                                                         ");
 
@@ -178,7 +170,6 @@ void main(List<String> arguments) {
 
       case 6:
         insurances.list.entries.forEach((entry) {
-          DateTime hoje = DateTime.now();
           if (hoje.isBefore(entry.value.endDate)) {
             switch(entry.value.periodicity){
               case Periodicity.monthly:
@@ -201,7 +192,6 @@ void main(List<String> arguments) {
 
       case 7:
         insurances.list.entries.forEach((entry) {
-          DateTime hoje = DateTime.now();
           if (hoje.isBefore(entry.value.endDate)) {
             print(entry.value.insured.name);
             print(age(entry.value.insured.birthDate));
@@ -218,25 +208,54 @@ void main(List<String> arguments) {
       case 8:
         totalApolices = insurances.list.length;
         insurances.list.entries.forEach((entry) {
-          DateTime hoje = DateTime.now();
           if (hoje.isBefore(entry.value.endDate)) {
             somaApoliceAtiva = somaApoliceAtiva + 1;
           }
         });
         somaApoliceInativa = totalApolices - somaApoliceAtiva;
-        print('A quantidade de apólices total é  $totalApolices');
-        print('A quantidade de apólices ativas é  $somaApoliceAtiva');
-        print('A quantidade de apólices inativas é  $somaApoliceInativa');
+        print("| Apólices Ativas\t| Apólices Inativas \t| Total Apólices");
+        print("---------------------------------------------------------------------");
+        print("| $somaApoliceAtiva\t\t\t| $somaApoliceInativa\t\t\t| $totalApolices");
+        print("---------------------------------------------------------------------");
+        print('');
+        print("| Tipo de Seguro\t| Apólices Ativas \t| Média Valor Segurado");
+        print("---------------------------------------------------------------------");
+        for (var type in [Types.auto, Types.health, Types.housing, Types.work]) {
+          totalApolices = 0;
+          contaSeguradora = 0;
+          insurances.list.values.where((v) => v.insuranceType == type).forEach((v) { 
+            if (hoje.isBefore(v.endDate)) {
+              totalApolices += 1;
+              contaSeguradora += v.insuredAmount;
+            }
+          });
+          print("| ${type.toString().replaceAll("Types.", "")}   \t\t| $totalApolices\t\t\t| ${contaSeguradora/totalApolices}");
+        }
+        print("---------------------------------------------------------------------");
+        print('');
+        print("| Seguradora\t\t| Apólices Ativas \t| Média Valor Segurado");
+        print("---------------------------------------------------------------------");
+        for (var insurer in insurers.list.values) {
+          totalApolices = 0;
+          contaSeguradora = 0;
+          insurances.list.values.where((v) => v.insurer == insurer).forEach((v) { 
+            if (hoje.isBefore(v.endDate)) {
+              totalApolices += 1;
+              contaSeguradora += v.insuredAmount;
+            }
+          });
+          print("| ${insurer.name}   \t\t| $totalApolices\t\t\t| ${contaSeguradora/totalApolices}");
+        }
+        print("---------------------------------------------------------------------");
         print('');
         print("Prima <Enter> para voltar ao Menu");
         stdin.readLineSync();
         break;
 
-      case 9:
+      /*case 9:
         print("\n-- Indique a seguradora:--");
         String seguradora = stdin.readLineSync() ?? "";
         insurances.list.entries.forEach((entry) {
-          DateTime hoje = DateTime.now();
           totalApolices = insurances.list.length;
           if (hoje.isBefore(entry.value.endDate)) {
             somaApoliceAtiva = somaApoliceAtiva + 1;
@@ -276,7 +295,7 @@ void main(List<String> arguments) {
         print('');
         print("Prima <Enter> para voltar ao Menu");
         stdin.readLineSync();
-        break;
+        break;*/
       case 11:
         print("Programa Finalizado");
         break;
