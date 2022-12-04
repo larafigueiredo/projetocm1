@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:tp1_ex3/data/insurers.dart';
 import 'package:tp1_ex3/data/persons.dart';
-import 'package:tp1_ex3/insurance.dart';
+import 'package:tp1_ex3/models/insurance.dart';
 import 'package:tp1_ex3/insurances/auto_insurance.dart';
 import 'package:tp1_ex3/insurances/health_insurance.dart';
 import 'package:tp1_ex3/insurances/housing_insurance.dart';
 import 'package:tp1_ex3/insurances/work_insurance.dart';
-import 'package:tp1_ex3/insurer.dart';
-import 'package:tp1_ex3/person.dart';
+import 'package:tp1_ex3/models/insurer.dart';
+import 'package:tp1_ex3/models/person.dart';
 
 import 'new_person.dart';
 
@@ -91,7 +91,7 @@ $clientes
 
   //Apenas mostra as seguradoras com o tipo de seguro escolhido
   insurers.list.forEach((key, element) {
-    if(element.insuranceTypes.contains(tipoSeguro)) seguradoras += '$key - $element\n';
+    if(element.insuranceTypes.contains(tipoSeguro)) seguradoras += '$key - ${element.short()}\n';
   });
 
   print("""

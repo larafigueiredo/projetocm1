@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:tp1_ex3/person.dart';
+import 'package:tp1_ex3/models/person.dart';
 
 Person newPerson() {
   String? opt = '';

@@ -1,4 +1,4 @@
-import 'package:tp1_ex3/insurance.dart';
+import 'package:tp1_ex3/models/insurance.dart';
 
 class HousingInsurance extends Insurance {
   String address;
@@ -22,4 +22,30 @@ class HousingInsurance extends Insurance {
       required this.garage,
       required this.houseValuation,
       required this.constructionYear});
+    
+  String short() {
+    return 'Seguro Habitação | ${insurer.name} | ${policyholder.name}';
+  }
+
+  @override
+  String toString() {
+    return ("""
+--------- Informação Geral ---------
+Seguradora:\t\t${insurer.name}
+Tomador do Seguro:\t${policyholder.name}
+Segurado:\t\t${insured.name}
+Tipo Seguro:\t\t$insuranceType
+--------- Detalhes Apólice ---------
+Morada:\t\t$address
+Nº Quartos:\t\t$roomsCapacity
+Garagem:\t\t$garage
+Valor da Habitação:\t$houseValuation
+Ano de COnstrução:\t$constructionYear
+------ Informação  Financeira ------
+Valor Segurado:\t\t$insuredAmount
+Periodicidade:\t\t$periodicity
+Prémio:\t\t\t$chargeAmount
+Inicio:\t\t\t${(startDate)}
+Fim:\t\t\t${(endDate)}""");
+  }
 }

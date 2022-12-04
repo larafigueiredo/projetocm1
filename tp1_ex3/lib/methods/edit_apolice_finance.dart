@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:tp1_ex3/data/insurances.dart';
-import 'package:tp1_ex3/insurance.dart';
+import 'package:tp1_ex3/models/insurance.dart';
 
 Insurance editApoliceFinance(Insurances insurances, int key) {
   Insurance changes = insurances.list[key]!;

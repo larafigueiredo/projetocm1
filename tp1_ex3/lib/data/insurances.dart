@@ -1,10 +1,11 @@
-import 'package:tp1_ex3/insurance.dart';
+import 'package:tp1_ex3/exceptions/unexpected_age_exception.dart';
+import 'package:tp1_ex3/models/insurance.dart';
 import 'package:tp1_ex3/insurances/auto_insurance.dart';
 import 'package:tp1_ex3/insurances/health_insurance.dart';
 import 'package:tp1_ex3/insurances/housing_insurance.dart';
 import 'package:tp1_ex3/insurances/work_insurance.dart';
-import 'package:tp1_ex3/insurer.dart';
-import 'package:tp1_ex3/person.dart';
+import 'package:tp1_ex3/models/insurer.dart';
+import 'package:tp1_ex3/models/person.dart';
 
 class Insurances {
   Map <int, Insurance> _insurances = <int, Insurance>{};
@@ -12,6 +13,10 @@ class Insurances {
   Map <int, Insurance> get list => _insurances;
 
   void add(Insurance insurance) {
+    if (age(insurance.policyholder.birthDate) < 18){
+      throw UnexpectedAgeException('data/insurances.dart');
+    }
+
     int key = getMaxKey() + 1;
     _insurances.addEntries([MapEntry(key,insurance)]);
   }
@@ -81,5 +86,15 @@ class Insurances {
     });
 
     return thevalue;
+  }
+
+  int age(DateTime data) {
+    DateTime hoje = DateTime.now();
+    if (hoje.month < data.month ||
+        (hoje.month == data.month && hoje.day < data.day)) {
+      return hoje.year - data.year - 1;
+    } else {
+      return hoje.year - data.year;
+    }
   }
 }

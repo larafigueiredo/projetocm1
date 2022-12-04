@@ -1,4 +1,6 @@
-import 'package:tp1_ex3/insurer.dart';
+import 'package:tp1_ex3/data/insurances.dart';
+import 'package:tp1_ex3/exceptions/integrity_exception.dart';
+import 'package:tp1_ex3/models/insurer.dart';
 
 class Insurers {
   Map<int, Insurer> _insurers = <int, Insurer>{};
@@ -10,7 +12,11 @@ class Insurers {
     _insurers.addEntries([MapEntry(key, insurer)]);
   }
 
-  void remove(int key) {
+  void remove(int key, Insurances insurances) {
+    if ((insurances.list.values.any((s) => s.insurer == _insurers[key]))){
+      throw IntegrityException('data/insurers[_insurers list]');
+    }
+    
     _insurers.removeWhere((k, v) => k == key);
   }
 

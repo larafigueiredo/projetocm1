@@ -1,4 +1,7 @@
-import 'package:tp1_ex3/person.dart';
+import 'package:tp1_ex3/data/insurances.dart';
+import 'package:tp1_ex3/exceptions/integrity_exception.dart';
+import 'package:tp1_ex3/exceptions/unexpected_age_exception.dart';
+import 'package:tp1_ex3/models/person.dart';
 
 class Persons {
   Map <int, Person> _persons = <int, Person>{};
@@ -10,7 +13,10 @@ class Persons {
     _persons.addEntries([MapEntry(key, person)]);
   }
 
-  void remove(int key) {
+  void remove(int key, Insurances insurances) {
+    if ((insurances.list.values.any((s) => s.policyholder == _persons[key] || s.insured == _persons[key]))){
+      throw IntegrityException('data/persons[_person list]');
+    }
     _persons.removeWhere((k, v) => k == key);
   }
   
@@ -22,7 +28,11 @@ class Persons {
     _persons[key]!.taxID = person.taxID;
   }
 
-  void updateDate(int key, DateTime date) {
+  void updateDate(int key, DateTime date, Insurances insurances) {
+    if ((insurances.list.values.any((s) => s.policyholder == _persons[key] && age(date) < 18))){
+      throw UnexpectedAgeException('data/persons[_person list]');
+    }
+
     _persons[key]!.birthDate = date;
   }
 
@@ -36,5 +46,15 @@ class Persons {
     });
 
     return thevalue;
+  }
+
+  int age(DateTime data) {
+    DateTime hoje = DateTime.now();
+    if (hoje.month < data.month ||
+        (hoje.month == data.month && hoje.day < data.day)) {
+      return hoje.year - data.year - 1;
+    } else {
+      return hoje.year - data.year;
+    }
   }
 }

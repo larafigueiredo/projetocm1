@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:tp1_ex3/data/persons.dart';
-import 'package:tp1_ex3/person.dart';
+import 'package:tp1_ex3/models/person.dart';
 
 Person editPerson(Persons persons, int key) {
   print("Se deseja alterar o campo, digite o novo valor. Caso contrário clique <Enter>");
