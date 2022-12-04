@@ -3,17 +3,19 @@ import 'dart:io';
 import 'package:tp1_ex3/data/insurances.dart';
 import 'package:tp1_ex3/models/insurance.dart';
 
+//alterar dados financeiros relativos a apólice
 Insurance editApoliceFinance(Insurances insurances, int key) {
   Insurance changes = insurances.list[key]!;
   int periodicidade = 0;
-  print("Se deseja alterar o campo, digite o novo valor. Caso contrário clique <Enter>");
+  print(
+      "Se deseja alterar o campo, digite o novo valor. Caso contrário clique <Enter>");
 
   print("Valor Assegurado: (Atual: ${changes.insuredAmount})");
   String valorSegurado = stdin.readLineSync()!;
   if (valorSegurado != "") {
     changes.insuredAmount = double.parse(valorSegurado);
   }
-  
+
   while (periodicidade < 1 || periodicidade > 3) {
     print("""
     ------------------------------------------------
@@ -44,6 +46,6 @@ Insurance editApoliceFinance(Insurances insurances, int key) {
   if (valorCobrado != "") {
     changes.chargeAmount = double.parse(valorCobrado);
   }
-  
+
   return changes;
 }

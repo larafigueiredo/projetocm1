@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:tp1_ex3/data/persons.dart';
 import 'package:tp1_ex3/models/person.dart';
 
+//editar dados da pessoa
 Person editPerson(Persons persons, int key) {
-  print("Se deseja alterar o campo, digite o novo valor. Caso contrário clique <Enter>");
+  print(
+      "Se deseja alterar o campo, digite o novo valor. Caso contrário clique <Enter>");
 
   print("Nome: (Atual: ${persons.list[key]!.name})");
   String name = stdin.readLineSync()!;
@@ -15,7 +17,7 @@ Person editPerson(Persons persons, int key) {
   print("Morada: (Atual: ${persons.list[key]!.address})");
   String address = stdin.readLineSync()!;
   if (address == "") address = persons.list[key]!.address;
-  
+
   print("Cidade: (Atual: ${persons.list[key]!.city})");
   String city = stdin.readLineSync()!;
   if (city == "") city = persons.list[key]!.city;
@@ -29,7 +31,7 @@ Person editPerson(Persons persons, int key) {
     citizenID = int.parse(citizen);
   }
 
-  print("NIT: (Atual: ${persons.list[key]!.taxID})");
+  print("NIF: (Atual: ${persons.list[key]!.taxID})");
   String tax = stdin.readLineSync()!;
   int taxID = 0;
   if (tax == "") {
@@ -37,7 +39,7 @@ Person editPerson(Persons persons, int key) {
   } else {
     taxID = int.parse(tax);
   }
-  
+
   return Person(
       name: name,
       birthDate: birthDate,

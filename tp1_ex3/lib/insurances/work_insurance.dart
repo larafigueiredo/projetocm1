@@ -1,24 +1,25 @@
 import 'package:tp1_ex3/models/insurance.dart';
 
+//classe de seguro de trabalho que herda de apólice
 class WorkInsurance extends Insurance {
+  //atributos da classe
   String companyName;
   String address;
   String workType;
-
-  WorkInsurance({
-    required super.insurer,
-    required super.policyholder,
-    required super.insured,
-    required super.insuranceType,
-    required super.insuredAmount,
-    required super.periodicity,
-    required super.chargeAmount,
-    required super.startDate,
-    required super.endDate,
-    required this.companyName,
-    required this.address,
-    required this.workType
-  });
+  //construtor
+  WorkInsurance(
+      {required super.insurer,
+      required super.policyholder,
+      required super.insured,
+      required super.insuranceType,
+      required super.insuredAmount,
+      required super.periodicity,
+      required super.chargeAmount,
+      required super.startDate,
+      required super.endDate,
+      required this.companyName,
+      required this.address,
+      required this.workType});
 
   String short() {
     return 'Seguro de Trabalho | ${insurer.name} | ${policyholder.name}';

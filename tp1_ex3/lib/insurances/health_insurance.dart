@@ -1,11 +1,14 @@
 import 'package:tp1_ex3/models/insurance.dart';
 
+//classe de seguro saude que herda de apólice
 class HealthInsurance extends Insurance {
+  //lista para armazenas doencas
   List<String> diseases;
+  //lista para armazenar rede medica
   List<String> medicalNetwork;
-
-  HealthInsurance({
-      required super.insurer,
+  //construtor
+  HealthInsurance(
+      {required super.insurer,
       required super.policyholder,
       required super.insured,
       required super.insuranceType,
@@ -14,10 +17,9 @@ class HealthInsurance extends Insurance {
       required super.chargeAmount,
       required super.startDate,
       required super.endDate,
-      required this.diseases, 
-      required this.medicalNetwork
-    });
-  
+      required this.diseases,
+      required this.medicalNetwork});
+
   String short() {
     return 'Seguro de Saude | ${insurer.name} | ${policyholder.name}';
   }

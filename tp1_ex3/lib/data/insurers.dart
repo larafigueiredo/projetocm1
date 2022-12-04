@@ -12,18 +12,21 @@ class Insurers {
     _insurers.addEntries([MapEntry(key, insurer)]);
   }
 
+  //exception para tentar remover seguradora que tenham apólices ativas
   void remove(int key, Insurances insurances) {
-    if ((insurances.list.values.any((s) => s.insurer == _insurers[key]))){
+    if ((insurances.list.values.any((s) => s.insurer == _insurers[key]))) {
       throw IntegrityException('data/insurers[_insurers list]');
     }
-    
+
     _insurers.removeWhere((k, v) => k == key);
   }
 
+  //atualiza seguradoras
   void update(int key, String name) {
     _insurers[key]!.name = name;
   }
 
+  //atualiza tipos de seguros
   void updateTypes(int key, List<Types> types) {
     _insurers[key]!.insuranceTypes = types;
   }

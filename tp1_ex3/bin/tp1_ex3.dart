@@ -126,11 +126,68 @@ void main(List<String> arguments) {
       carYear: 2021,
       carValuation: 35213.82,
       driverLicenseDate: DateTime(2010, 10, 5)));
-  insurances.add(HealthInsurance(insurer: insurer1, policyholder: person5, insured: person4, insuranceType: Types.health, insuredAmount: 1300, periodicity: Periodicity.monthly, chargeAmount: 9.9900, startDate: DateTime(2021, 12, 01), endDate: DateTime(2022, 12, 01), diseases: ['Asma'], medicalNetwork: ['TrofaSaude','SNS']));
-  insurances.add(WorkInsurance(insurer: insurer1, policyholder: person5, insured: person2, insuranceType: Types.work, insuredAmount: 9000, periodicity: Periodicity.semiannual, chargeAmount: 24.990, startDate: DateTime(2022, 12, 01), endDate: DateTime(2023, 12, 01), companyName: 'Biscates do Jose', address: 'Rua da Cova do Fundo, nº 10', workType: 'Biscates'));
-  insurances.add(WorkInsurance(insurer: insurer1, policyholder: person5, insured: person3, insuranceType: Types.work, insuredAmount: 9000, periodicity: Periodicity.semiannual, chargeAmount: 24.990, startDate: DateTime(2022, 06, 01), endDate: DateTime(2023, 06, 01), companyName: 'Biscates do Jose', address: 'Rua da Cova do Fundo, nº 10', workType: 'Biscates'));
-  insurances.add(HealthInsurance(insurer: insurer2, policyholder: person5, insured: person4, insuranceType: Types.health, insuredAmount: 1800, periodicity: Periodicity.monthly, chargeAmount: 7.9900, startDate: DateTime(2022, 12, 01), endDate: DateTime(2023, 12, 01), diseases: ['Asma'], medicalNetwork: ['TrofaSaude','SNS']));
-  insurances.add(HealthInsurance(insurer: insurer2, policyholder: person5, insured: person5, insuranceType: Types.health, insuredAmount: 1800, periodicity: Periodicity.monthly, chargeAmount: 7.9900, startDate: DateTime(2022, 12, 01), endDate: DateTime(2023, 12, 01), diseases: ['Asma', 'Stress', 'Diabetes'], medicalNetwork: ['TrofaSaude','SNS']));
+  insurances.add(HealthInsurance(
+      insurer: insurer1,
+      policyholder: person5,
+      insured: person4,
+      insuranceType: Types.health,
+      insuredAmount: 1300,
+      periodicity: Periodicity.monthly,
+      chargeAmount: 9.9900,
+      startDate: DateTime(2021, 12, 01),
+      endDate: DateTime(2022, 12, 01),
+      diseases: ['Asma'],
+      medicalNetwork: ['TrofaSaude', 'SNS']));
+  insurances.add(WorkInsurance(
+      insurer: insurer1,
+      policyholder: person5,
+      insured: person2,
+      insuranceType: Types.work,
+      insuredAmount: 9000,
+      periodicity: Periodicity.semiannual,
+      chargeAmount: 24.990,
+      startDate: DateTime(2022, 12, 01),
+      endDate: DateTime(2023, 12, 01),
+      companyName: 'Biscates do Jose',
+      address: 'Rua da Cova do Fundo, nº 10',
+      workType: 'Biscates'));
+  insurances.add(WorkInsurance(
+      insurer: insurer1,
+      policyholder: person5,
+      insured: person3,
+      insuranceType: Types.work,
+      insuredAmount: 9000,
+      periodicity: Periodicity.semiannual,
+      chargeAmount: 24.990,
+      startDate: DateTime(2022, 06, 01),
+      endDate: DateTime(2023, 06, 01),
+      companyName: 'Biscates do Jose',
+      address: 'Rua da Cova do Fundo, nº 10',
+      workType: 'Biscates'));
+  insurances.add(HealthInsurance(
+      insurer: insurer2,
+      policyholder: person5,
+      insured: person4,
+      insuranceType: Types.health,
+      insuredAmount: 1800,
+      periodicity: Periodicity.monthly,
+      chargeAmount: 7.9900,
+      startDate: DateTime(2022, 12, 01),
+      endDate: DateTime(2023, 12, 01),
+      diseases: ['Asma'],
+      medicalNetwork: ['TrofaSaude', 'SNS']));
+  insurances.add(HealthInsurance(
+      insurer: insurer2,
+      policyholder: person5,
+      insured: person5,
+      insuranceType: Types.health,
+      insuredAmount: 1800,
+      periodicity: Periodicity.monthly,
+      chargeAmount: 7.9900,
+      startDate: DateTime(2022, 12, 01),
+      endDate: DateTime(2023, 12, 01),
+      diseases: ['Asma', 'Stress', 'Diabetes'],
+      medicalNetwork: ['TrofaSaude', 'SNS']));
 
   //MENU PRINCIPAL
   while (opcao != 9) {
@@ -153,7 +210,7 @@ void main(List<String> arguments) {
         "| 4 - Ver Todas Seguradoras                                                               |");
     print(
         "| 5 - Ver Todas Apólices                                                                  |");
-   print(
+    print(
         "|--------------------------------------- Relatórios --------------------------------------|");
     print(
         "| 6 - Mostrar Dashboard                                                                   |");
@@ -221,67 +278,106 @@ void main(List<String> arguments) {
       case 6:
         //Dashboard de informações gerais sobre apólices
         somaApoliceAtiva = 0;
-        totalApolices = insurances.list.length;  //Conta todas as apólices
+        totalApolices = insurances.list.length; //Conta todas as apólices
         insurances.list.values.forEach((entry) {
           if (hoje.isBefore(entry.endDate)) {
-            somaApoliceAtiva = somaApoliceAtiva + 1; //verifica quantas são ativas
+            somaApoliceAtiva =
+                somaApoliceAtiva + 1; //verifica quantas são ativas
           }
         });
-        somaApoliceInativa = totalApolices - somaApoliceAtiva;  //o restante será inativo
+        somaApoliceInativa =
+            totalApolices - somaApoliceAtiva; //o restante será inativo
         print("| Apólices Ativas\t| Apólices Inativas \t| Total Apólices");
-        print("---------------------------------------------------------------------");
-        print("| $somaApoliceAtiva\t\t\t| $somaApoliceInativa\t\t\t| $totalApolices");
-        print("---------------------------------------------------------------------");
+        print(
+            "---------------------------------------------------------------------");
+        print(
+            "| $somaApoliceAtiva\t\t\t| $somaApoliceInativa\t\t\t| $totalApolices");
+        print(
+            "---------------------------------------------------------------------");
         print('');
         print("| Tipo de Seguro\t| Apólices Ativas \t| Média Valor Segurado");
-        print("---------------------------------------------------------------------");
-        for (var type in [Types.auto, Types.health, Types.housing, Types.work]) {
+        print(
+            "---------------------------------------------------------------------");
+        for (var type in [
+          Types.auto,
+          Types.health,
+          Types.housing,
+          Types.work
+        ]) {
           //ciclo para cada tipo de seguro
           totalApolices = 0;
           contaSeguradora = 0;
-          insurances.list.values.where((v) => v.insuranceType == type).forEach((v) { 
+          insurances.list.values
+              .where((v) => v.insuranceType == type)
+              .forEach((v) {
             if (hoje.isBefore(v.endDate)) {
-              totalApolices += 1; //calcula o total de apolices ativas do tipo de seguro
-              contaSeguradora += v.insuredAmount; // calcula o total de valores assegurados
+              totalApolices +=
+                  1; //calcula o total de apolices ativas do tipo de seguro
+              contaSeguradora +=
+                  v.insuredAmount; // calcula o total de valores assegurados
             }
           });
-          print("| ${type.toString().replaceAll("Types.", "")}   \t\t| $totalApolices\t\t\t| ${contaSeguradora/totalApolices}"); //imprime a média dos valores assegurados
+          print(
+              "| ${type.toString().replaceAll("Types.", "")}   \t\t| $totalApolices\t\t\t| ${contaSeguradora / totalApolices}"); //imprime a média dos valores assegurados
         }
-        print("---------------------------------------------------------------------");
+        print(
+            "---------------------------------------------------------------------");
         print('');
         print("| Seguradora\t\t| Apólices Ativas \t| Média Valor Segurado");
-        print("---------------------------------------------------------------------");
+        print(
+            "---------------------------------------------------------------------");
         for (var insurer in insurers.list.values) {
           //ciclo para cada seguradora
           totalApolices = 0;
           contaSeguradora = 0;
-          insurances.list.values.where((v) => v.insurer == insurer).forEach((v) { 
+          insurances.list.values
+              .where((v) => v.insurer == insurer)
+              .forEach((v) {
             if (hoje.isBefore(v.endDate)) {
-              totalApolices += 1; //calcula o total de apolices ativas do tipo de seguro
-              contaSeguradora += v.insuredAmount; // calcula o total de valores assegurados
+              totalApolices +=
+                  1; //calcula o total de apolices ativas do tipo de seguro
+              contaSeguradora +=
+                  v.insuredAmount; // calcula o total de valores assegurados
             }
           });
-          print("| ${insurer.name}   \t\t| $totalApolices\t\t\t| ${contaSeguradora/totalApolices}");
+          print(
+              "| ${insurer.name}   \t\t| $totalApolices\t\t\t| ${contaSeguradora / totalApolices}");
         }
-        print("---------------------------------------------------------------------");
+        print(
+            "---------------------------------------------------------------------");
         print('');
         print("Prima <Enter> para voltar ao Menu");
         stdin.readLineSync();
         break;
       case 7:
         print('Relatório de apólices ativas por tipo de seguro e seguradora\n');
-        for (Insurer seguradora in insurers.list.values){
-          for (Types tipo in [Types.auto, Types.health, Types.housing, Types.work]){
+        for (Insurer seguradora in insurers.list.values) {
+          for (Types tipo in [
+            Types.auto,
+            Types.health,
+            Types.housing,
+            Types.work
+          ]) {
             somaValorPremio = 0;
             conta = 0;
-            insurances.list.values.where((e) => e.insuranceType == tipo && e.insurer == seguradora && hoje.isBefore(e.endDate)).forEach((entry) {
-              conta ++;
-              if (conta == 1){
-                print("|-----------------------------------------------------------------------|");
-                print("                 ${seguradora.name} > ${tipo.toString().replaceAll("Types.", "Seguro ")}                                  ");
-                print("|-----------------------------------------------------------------------|");
-                print("| Tomador do Seguro\tSegurado\tPrémio\txx\tTotal Anual\t|");
-                print("|-----------------------------------------------------------------------|");
+            insurances.list.values
+                .where((e) =>
+                    e.insuranceType == tipo &&
+                    e.insurer == seguradora &&
+                    hoje.isBefore(e.endDate))
+                .forEach((entry) {
+              conta++;
+              if (conta == 1) {
+                print(
+                    "|-----------------------------------------------------------------------|");
+                print(
+                    "                 ${seguradora.name} > ${tipo.toString().replaceAll("Types.", "Seguro ")}                                  ");
+                print(
+                    "|-----------------------------------------------------------------------|");
+                print(
+                    "| Tomador do Seguro\tSegurado\tPrémio\txx\tTotal Anual\t|");
+                print(
+                    "|-----------------------------------------------------------------------|");
               }
               switch (entry.periodicity) {
                 case Periodicity.monthly:
@@ -300,11 +396,12 @@ void main(List<String> arguments) {
               somaValorPremio = somaValorPremio + premioAnual;
               print(
                   '| ${(entry.policyholder.name)}\t${(entry.insured.name)}\t${(entry.chargeAmount)} €\t$multiplicador\t$premioAnual €\t|');
-
             });
-            if (conta > 0){
-              print("|-----------------------------------------------------------------------|");
-              print('| Apólices:\t$conta\t\t\tTOTAL ANUAL:\t$somaValorPremio €\t|');
+            if (conta > 0) {
+              print(
+                  "|-----------------------------------------------------------------------|");
+              print(
+                  '| Apólices:\t$conta\t\t\tTOTAL ANUAL:\t$somaValorPremio €\t|');
               print('\n');
             }
           }
@@ -318,8 +415,11 @@ void main(List<String> arguments) {
         print('Entidade\t\tIdade\tMorada \n'
             '-------------------------------------------------------------------------------------------------------------\n');
         persons.list.values.forEach((element) {
-          if (insurances.list.values.any((e) => (e.policyholder == element || e.insured == element) && hoje.isBefore(e.endDate))){
-            print('${(element.name)}\t\t${(age(element.birthDate))}\t${(element.address)}\t\t');
+          if (insurances.list.values.any((e) =>
+              (e.policyholder == element || e.insured == element) &&
+              hoje.isBefore(e.endDate))) {
+            print(
+                '${(element.name)}\t\t${(age(element.birthDate))}\t${(element.address)}\t\t');
           }
         });
         print('');
@@ -334,18 +434,16 @@ void main(List<String> arguments) {
       default:
         print("Opção Inválida");
         break;
-      
-      
     }
   }
 }
-
 
 void printMap(Map dataMap, String typeMap) {
   //Método para imprimir os maps
   print('----------- $typeMap -----------\n');
   dataMap.forEach((key, element) {
-    print('$key - ${element.short()}');  //O Metodo short é uma versao mais minimalista do toString()
+    print(
+        '$key - ${element.short()}'); //O Metodo short é uma versao mais minimalista do toString()
   });
   print("");
   print("Para selecionar, digite o ID. Para voltar, deixe em branco.");
@@ -383,7 +481,6 @@ int age(DateTime data, [String? m, DateTime? old]) {
   }
 }
 
-
 void printSeguradora(String seguradora) {
   //Menu seguradora
   print("----------------------------------------");
@@ -406,12 +503,12 @@ void printSeguradora(String seguradora) {
     List<Types> types = setTypes();
     insurers.updateTypes(int.parse(seguradora), types);
   }
-  
+
   if (opt == 3) {
     //Remove Seguradora
-    try{
+    try {
       insurers.remove(int.parse(seguradora), insurances);
-    } on IntegrityException catch (e, f){
+    } on IntegrityException catch (e, f) {
       //Valida se não está associada a nenhuma apólice
       print(e.errorMessage());
       print(f);
@@ -447,20 +544,19 @@ void printPerson(String cliente) {
     } on Exception {
       print('Other error occured');
     }
-
   }
-  if (opt == 3){
+  if (opt == 3) {
     //Remove uma Pessoa
-    try{
+    try {
       persons.remove(int.parse(cliente), insurances);
-    } on IntegrityException catch (e, f){
+    } on IntegrityException catch (e, f) {
       //Valida se não está associada a nenhuma apólice
       print(e.errorMessage());
       print(f);
     } on Exception {
       print('Other error occured');
     }
-  } 
+  }
 }
 
 String printApolice(String apolice) {

@@ -1,14 +1,16 @@
 import 'package:tp1_ex3/models/insurance.dart';
 
+//classe de seguro habitacao que herda de apólice
 class HousingInsurance extends Insurance {
+  //atributos da classe
   String address;
   int roomsCapacity;
   bool garage;
   double houseValuation;
   int constructionYear;
-
-  HousingInsurance({
-      required super.insurer,
+  //construtor
+  HousingInsurance(
+      {required super.insurer,
       required super.policyholder,
       required super.insured,
       required super.insuranceType,
@@ -22,7 +24,7 @@ class HousingInsurance extends Insurance {
       required this.garage,
       required this.houseValuation,
       required this.constructionYear});
-    
+
   String short() {
     return 'Seguro Habitação | ${insurer.name} | ${policyholder.name}';
   }

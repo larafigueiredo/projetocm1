@@ -12,6 +12,7 @@ import 'package:tp1_ex3/models/person.dart';
 
 import 'new_person.dart';
 
+//cadastrar nova apólice
 Insurance newInsurance(Insurers insurers, Persons persons) {
   var periodicity;
   var customer;
@@ -33,18 +34,17 @@ Insurance newInsurance(Insurers insurers, Persons persons) {
 
     opcao = int.parse(stdin.readLineSync()!);
   }
-  if (opcao == 1){
+  if (opcao == 1) {
     customer = newPerson();
     persons.add(customer);
-  }
-  else{
+  } else {
     String clientes = "";
     //Apenas mostra as seguradoras com o tipo de seguro escolhido
     persons.list.forEach((key, element) {
       clientes += '$key - ${element.short()}\n';
     });
 
-  print("""
+    print("""
 ------------------------------------------------
     
 Escolha o Cliente:
@@ -53,7 +53,6 @@ $clientes
 ------------------------------------------------""");
     int cliente = int.parse(stdin.readLineSync()!);
     customer = persons.list[cliente];
-
   }
 
   String? opt = "";
@@ -62,10 +61,10 @@ $clientes
     opt = stdin.readLineSync();
   }
   Person segurado = customer;
-  if (opt == 'n'){
+  if (opt == 'n') {
     segurado = newPerson();
     persons.add(segurado);
-  } 
+  }
 
   int type = 0;
 
@@ -84,14 +83,15 @@ $clientes
     type = int.parse(stdin.readLineSync()!);
   }
 
-  if(type==1) tipoSeguro = Types.auto;
-  if(type==2) tipoSeguro = Types.housing;
-  if(type==3) tipoSeguro = Types.health;
-  if(type==4) tipoSeguro = Types.work;
+  if (type == 1) tipoSeguro = Types.auto;
+  if (type == 2) tipoSeguro = Types.housing;
+  if (type == 3) tipoSeguro = Types.health;
+  if (type == 4) tipoSeguro = Types.work;
 
   //Apenas mostra as seguradoras com o tipo de seguro escolhido
   insurers.list.forEach((key, element) {
-    if(element.insuranceTypes.contains(tipoSeguro)) seguradoras += '$key - ${element.short()}\n';
+    if (element.insuranceTypes.contains(tipoSeguro))
+      seguradoras += '$key - ${element.short()}\n';
   });
 
   print("""
@@ -156,7 +156,7 @@ $seguradoras
 
   DateTime dataFim = DateTime(ano, mes, dia);
 
-  switch (type){
+  switch (type) {
     case 1:
       print("Matrícula");
       String matricula = stdin.readLineSync() ?? "";
@@ -217,29 +217,27 @@ $seguradoras
       int anoConstrucao = int.parse(stdin.readLineSync()!);
 
       return HousingInsurance(
-        insurer: insurer,
-        policyholder: customer,
-        insured: segurado,
-        insuranceType: tipoSeguro,
-        insuredAmount: valorSegurado,
-        periodicity: periodicity,
-        chargeAmount: valorCobrado,
-        startDate: dataInicio,
-        endDate: dataFim,
-        address: morada,
-        roomsCapacity: numeroQuartos,
-        garage: garagem,
-        houseValuation: valorHabitacao,
-        constructionYear: anoConstrucao
-      );
-      
+          insurer: insurer,
+          policyholder: customer,
+          insured: segurado,
+          insuranceType: tipoSeguro,
+          insuredAmount: valorSegurado,
+          periodicity: periodicity,
+          chargeAmount: valorCobrado,
+          startDate: dataInicio,
+          endDate: dataFim,
+          address: morada,
+          roomsCapacity: numeroQuartos,
+          garage: garagem,
+          houseValuation: valorHabitacao,
+          constructionYear: anoConstrucao);
+
     case 3:
       String text = " ";
       List<String> doencas = [];
       List<String> redesMedicas = [];
       while (text != "") {
-        print(
-            "Indique doenças associadas (Para avançar deixe em branco");
+        print("Indique doenças associadas (Para avançar deixe em branco");
         text = stdin.readLineSync() ?? "";
         if (text != "") doencas.add(text);
       }
@@ -254,19 +252,18 @@ $seguradoras
       }
 
       return HealthInsurance(
-        insurer: insurer,
-        policyholder: customer,
-        insured: segurado,
-        insuranceType: tipoSeguro,
-        insuredAmount: valorSegurado,
-        periodicity: periodicity,
-        chargeAmount: valorCobrado,
-        startDate: dataInicio,
-        endDate: dataFim,
-        diseases: doencas, 
-        medicalNetwork: redesMedicas
-      );
-  
+          insurer: insurer,
+          policyholder: customer,
+          insured: segurado,
+          insuranceType: tipoSeguro,
+          insuredAmount: valorSegurado,
+          periodicity: periodicity,
+          chargeAmount: valorCobrado,
+          startDate: dataInicio,
+          endDate: dataFim,
+          diseases: doencas,
+          medicalNetwork: redesMedicas);
+
     default:
       print("Nome da Empresa");
       String nomeEmpresa = stdin.readLineSync() ?? "";
@@ -276,20 +273,17 @@ $seguradoras
       String tipoTrabalho = stdin.readLineSync() ?? "";
 
       return WorkInsurance(
-        insurer: insurer,
-        policyholder: customer,
-        insured: segurado,
-        insuranceType: tipoSeguro,
-        insuredAmount: valorSegurado,
-        periodicity: periodicity,
-        chargeAmount: valorCobrado,
-        startDate: dataInicio,
-        endDate: dataFim,
-        companyName: nomeEmpresa, 
-        address: morada, 
-        workType: tipoTrabalho
-      );
+          insurer: insurer,
+          policyholder: customer,
+          insured: segurado,
+          insuranceType: tipoSeguro,
+          insuredAmount: valorSegurado,
+          periodicity: periodicity,
+          chargeAmount: valorCobrado,
+          startDate: dataInicio,
+          endDate: dataFim,
+          companyName: nomeEmpresa,
+          address: morada,
+          workType: tipoTrabalho);
   }
-  
-  
 }

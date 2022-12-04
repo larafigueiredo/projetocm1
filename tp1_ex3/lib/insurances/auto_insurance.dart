@@ -1,6 +1,8 @@
 import 'package:tp1_ex3/models/insurance.dart';
 
+//classe de seguro automovel que herda de apólice
 class AutoInsurance extends Insurance {
+  //atributos
   String licensePlate;
   String brand;
   String model;
@@ -8,7 +10,7 @@ class AutoInsurance extends Insurance {
   int carYear;
   double carValuation;
   DateTime driverLicenseDate;
-
+//construtor
   AutoInsurance(
       {required super.insurer,
       required super.policyholder,

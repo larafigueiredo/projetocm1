@@ -1,11 +1,12 @@
 class Person {
+  //atributos da classe pessoa
   String name;
   DateTime birthDate;
   String address;
   String city;
   int citizenID;
   int taxID;
-
+  //construtor
   Person(
       {required this.name,
       required this.birthDate,
@@ -20,7 +21,7 @@ class Person {
 
   @override
   String toString() {
-    return("""
+    return ("""
 Nome:\t\t\t$name
 Data Nascimento:\t$birthDate
 Morada:\t\t\t$address

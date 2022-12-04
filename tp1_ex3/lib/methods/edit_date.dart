@@ -1,8 +1,9 @@
 import 'dart:io';
 
-
+//editar datas
 DateTime editDate(DateTime date) {
-  print("Se deseja alterar o campo, digite o novo valor. Caso contrário clique <Enter>");
+  print(
+      "Se deseja alterar o campo, digite o novo valor. Caso contrário clique <Enter>");
 
   print("Dia: (Atual: ${date.day})");
   String dia = stdin.readLineSync()!;
@@ -30,6 +31,6 @@ DateTime editDate(DateTime date) {
   } else {
     year = int.parse(ano);
   }
-  
+
   return DateTime(year, month, day);
 }
