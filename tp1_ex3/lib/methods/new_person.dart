@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:tp1_ex3/models/person.dart';
 
+//cadastrar pessoa
 Person newPerson() {
   String? opt = '';
   print("Nome Completo: ");

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:tp1_ex3/insurances/auto_insurance.dart';
 
-//metodo para alterar dados do seguro automovel
+//editar dados do seguro automovel
 AutoInsurance editAutoInsurance(AutoInsurance insurance) {
   print(
       "Se deseja alterar o campo, digite o novo valor. Caso contrário clique <Enter>");

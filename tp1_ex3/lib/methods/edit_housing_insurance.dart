@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:tp1_ex3/insurances/housing_insurance.dart';
 
-//metodo para alterar dados do seguro habitacao
+//editar dados do seguro habitacao
 HousingInsurance editHousingInsurance(HousingInsurance insurance) {
   String? opt = "";
   print(

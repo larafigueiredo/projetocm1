@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:tp1_ex3/data/insurances.dart';
 import 'package:tp1_ex3/models/insurance.dart';
 
-//alterar dados financeiros relativos a apólice
+//editar dados financeiros relativos a apólice
 Insurance editApoliceFinance(Insurances insurances, int key) {
   Insurance changes = insurances.list[key]!;
   int periodicidade = 0;

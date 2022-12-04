@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:tp1_ex3/insurances/work_insurance.dart';
 
-//metodo para alterar dados do seguro trabalho
+//editar dados do seguro trabalho
 WorkInsurance editWorkInsurance(WorkInsurance insurance) {
   print(
       "Se deseja alterar o campo, digite o novo valor. Caso contrário clique <Enter>");

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:tp1_ex3/insurances/health_insurance.dart';
 
-//metodo para alterar dados do seguro saude
+//editar dados do seguro saude
 HealthInsurance editHealthInsurance(HealthInsurance insurance) {
   String text = " ";
   List<String> doencas = [];
